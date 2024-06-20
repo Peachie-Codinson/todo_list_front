@@ -12,4 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build frontend Docker image
-        run: docker build ./todo_list_front --file ./todo_list_front/Dockerfile --tag my-frontend-image:$(date +%s)
+        working-directory: todo_list_front
+        run: docker build . --file Dockerfile --tag my-frontend-image:$(date +%s)
