@@ -9,12 +9,12 @@ const ToDoList = () => {
     const [todos, setTodos] = useState([]);
     const [editingTodo, setEditingTodo] = useState(null);
     const [sortedTodos, setSortedTodos] = useState([]);
-    const [sortCriteria, setSortCriteria] = useState('date_created'); // Default sort criteria
-    const [showCompleted, setShowCompleted] = useState(false); // State to toggle between in-progress and completed tasks
+    const [sortCriteria, setSortCriteria] = useState('date_created'); 
+    const [showCompleted, setShowCompleted] = useState(false); 
 
     useEffect(() => {
         fetchTodos();
-    }, [showCompleted]); // Fetch todos when showCompleted changes
+    }, [showCompleted]); 
 
     useEffect(() => {
         sortTodos(sortCriteria);
@@ -43,18 +43,8 @@ const ToDoList = () => {
         setEditingTodo(todo);
     };
 
-    const updateTodo = async (updatedTodo) => {
-        try {
-            await axios.put(`http://localhost:8080/api/todos/${updatedTodo.id}/`, updatedTodo);
-            fetchTodos(); // Refresh the list after updating
-            setEditingTodo(null); // Exit editing mode
-        } catch (error) {
-            console.error('Error updating todo:', error);
-        }
-    };
-
     const cancelEdit = () => {
-        setEditingTodo(null); // Cancel editing mode
+        setEditingTodo(null); 
     };
 
     const markAsDone = async (id) => {
@@ -64,7 +54,7 @@ const ToDoList = () => {
                 status: 'completed',
                 date_completed: new Date().toISOString(),
             });
-            fetchTodos(); // Refresh the list after marking as done
+            fetchTodos();
         } catch (error) {
             console.error('Error marking as done:', error);
         }
@@ -78,9 +68,9 @@ const ToDoList = () => {
                 break;
             case 'date_ended':
                 sorted = [...todos].sort((a, b) => {
-                    if (!a.date_ended) return 1; // Tasks with no end date go to the end
-                    if (!b.date_ended) return -1;
-                    return new Date(b.date_ended) - new Date(a.date_ended);
+                    if (!a.date_to_be_completed) return 1; 
+                    if (!b.date_to_be_completed) return -1;
+                    return new Date(b.date_to_be_completed) - new Date(a.date_to_be_completed);
                 });
                 break;
             case 'priority':
@@ -90,7 +80,7 @@ const ToDoList = () => {
                 });
                 break;
             default:
-                sorted = [...todos]; // Default to original order
+                sorted = [...todos];
         }
         setSortedTodos(sorted);
         setSortCriteria(criteria);
@@ -164,10 +154,7 @@ const ToDoList = () => {
                     </div>
                 ) : (
                     <div>
-                        {/* Content for showing completed tasks */}
                         <h2 className="text-center mt-4 mb-4">Completed Tasks</h2>
-                        {/* Add logic to display completed tasks */}
-                        {/* Example: */}
                         <div className="row justify-content-center">
                             <div className="col-md-8">
                                 <ul className="list-group">

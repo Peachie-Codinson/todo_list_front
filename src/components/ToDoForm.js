@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Col, Row } from 'react-bootstrap'; // Import Card, Col, and Row from react-bootstrap
+import { Card, Col, Row } from 'react-bootstrap';
 
 const ToDoForm = ({ fetchTodos, editingTodo, setEditingTodo }) => {
     const [description, setDescription] = useState('');
@@ -35,7 +35,7 @@ const ToDoForm = ({ fetchTodos, editingTodo, setEditingTodo }) => {
                     priority,
                 });
             }
-            fetchTodos(); // Fetch todos again after adding/updating
+            fetchTodos(); 
             setDescription('');
             setDateToBeCompleted('');
             setPriority('low');

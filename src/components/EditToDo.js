@@ -23,8 +23,8 @@ const EditToDo = ({ todo, fetchTodos, onCancel }) => {
                 date_to_be_completed: dateToBeCompleted,
                 priority,
             });
-            fetchTodos(); // Fetch todos again after updating
-            onCancel(); // Cancel editing mode
+            fetchTodos(); 
+            onCancel(); 
         } catch (error) {
             console.error('Error updating todo:', error);
         }
