@@ -1,0 +1,16 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build frontend Docker image
+      working-directory: todo_list_front 
+      run: docker build . --file Dockerfile --tag my-frontend-image:$(date +%s)
