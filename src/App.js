@@ -3,7 +3,7 @@ import ToDoList from './components/ToDoList';
 
 const App = () => {
     const [fetchTodos, setFetchTodos] = useState(() => () => {});
-    const [editingTodo, setEditingTodo] = useState(null);
+    const [, setEditingTodo] = useState(null);
 
     return (
         <div>
