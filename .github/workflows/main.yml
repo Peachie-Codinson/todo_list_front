@@ -12,11 +12,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Build frontend Docker image
         run: docker build . --file Dockerfile --tag my-frontend-image:$(date +%s)
-      - name: Run Jest tests
+
+      - name: Run Jest tests in Docker container
         run: |
           docker run my-frontend-image:$(date +%s) npm test
-
-
