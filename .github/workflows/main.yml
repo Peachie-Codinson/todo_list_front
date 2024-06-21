@@ -7,9 +7,16 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-frontend:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
       - name: Build frontend Docker image
         run: docker build . --file Dockerfile --tag my-frontend-image:$(date +%s)
+      - name: Run Jest tests
+        run: |
+          docker run my-frontend-image:$(date +%s) npm test
+
+
