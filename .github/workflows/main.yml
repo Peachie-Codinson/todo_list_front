@@ -17,8 +17,8 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Build frontend Docker image
-        run: docker build . --file Dockerfile 
-        
+        run: docker build . --file Dockerfile -t frontend-app
+
       - name: Run Jest tests in Docker container
         run: |
-          docker run npm test
+          docker run frontend-app npm test
