@@ -9,12 +9,12 @@ const ToDoList = () => {
     const [todos, setTodos] = useState([]);
     const [editingTodo, setEditingTodo] = useState(null);
     const [sortedTodos, setSortedTodos] = useState([]);
-    const [sortCriteria, setSortCriteria] = useState('date_created'); 
-    const [showCompleted, setShowCompleted] = useState(false); 
+    const [sortCriteria, setSortCriteria] = useState('date_created');
+    const [showCompleted, setShowCompleted] = useState(false);
 
     useEffect(() => {
         fetchTodos();
-    }, [showCompleted]); 
+    }, [showCompleted]);
 
     useEffect(() => {
         sortTodos(sortCriteria);
@@ -44,7 +44,7 @@ const ToDoList = () => {
     };
 
     const cancelEdit = () => {
-        setEditingTodo(null); 
+        setEditingTodo(null);
     };
 
     const markAsDone = async (id) => {
@@ -68,7 +68,7 @@ const ToDoList = () => {
                 break;
             case 'date_ended':
                 sorted = [...todos].sort((a, b) => {
-                    if (!a.date_to_be_completed) return 1; 
+                    if (!a.date_to_be_completed) return 1;
                     if (!b.date_to_be_completed) return -1;
                     return new Date(b.date_to_be_completed) - new Date(a.date_to_be_completed);
                 });
@@ -128,7 +128,7 @@ const ToDoList = () => {
                                     {editingTodo && editingTodo.id === todo.id ? (
                                         <EditToDo todo={editingTodo} fetchTodos={fetchTodos} onCancel={cancelEdit} />
                                     ) : (
-                                        <Card>
+                                        <Card className={getClassForPriority(todo.priority)}>
                                             <Card.Body className="d-flex">
                                                 <div className="flex-grow-1">
                                                     <div className="d-flex flex-column">
@@ -173,6 +173,19 @@ const ToDoList = () => {
             </div>
         </div>
     );
+
+    function getClassForPriority(priority) {
+        switch (priority) {
+            case 'High':
+                return 'border border-danger';
+            case 'Medium':
+                return 'border border-warning';
+            case 'Low':
+                return 'border border-success';
+            default:
+                return '';
+        }
+    }
 
     function formatDateTime(dateTimeString) {
         const date = new Date(dateTimeString);
