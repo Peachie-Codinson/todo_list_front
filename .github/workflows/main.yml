@@ -21,4 +21,4 @@ jobs:
 
       - name: Run Jest tests in Docker container
         run: |
-          docker run frontend-app npm test
+          docker run frontend-app npm test -- --maxWorkers=2
