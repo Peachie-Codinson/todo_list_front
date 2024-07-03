@@ -48,11 +48,9 @@ const ToDoForm = ({ fetchTodos, editingTodo, setEditingTodo }) => {
     return (
         <Col md={8} className="mx-auto mt-4 mb-4">
             <Card className="p-4">
-                
-            <h3 className="mb-4">Add new task</h3>
+                <h3 className="mb-4">{editingTodo ? 'Edit Task' : 'Add New Task'}</h3>
                 <form onSubmit={handleSubmit}>
-                    <Row className="mb-3 ">
-                        
+                    <Row className="mb-3">
                         <Col>
                             <label className="form-label">
                                 Description:
@@ -99,7 +97,6 @@ const ToDoForm = ({ fetchTodos, editingTodo, setEditingTodo }) => {
             </Card>
         </Col>
     );
-    
 };
 
 export default ToDoForm;

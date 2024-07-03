@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Button, Form, Row, Col } from 'react-bootstrap';
 
-const EditToDo = ({ todo, fetchTodos, onCancel }) => {
+const EditToDo = ({ todo, updateTodo, onCancel }) => {
     const [description, setDescription] = useState('');
     const [dateToBeCompleted, setDateToBeCompleted] = useState('');
     const [priority, setPriority] = useState('low');
@@ -18,20 +18,22 @@ const EditToDo = ({ todo, fetchTodos, onCancel }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.put(`http://localhost:8080/api/todos/${todo.id}/`, {
+            const updatedTodo = {
+                ...todo,
                 description,
                 date_to_be_completed: dateToBeCompleted,
                 priority,
-            });
-            fetchTodos(); 
-            onCancel(); 
+            };
+            await axios.put(`http://localhost:8080/api/todos/${todo.id}/`, updatedTodo);
+            updateTodo(updatedTodo);
+            onCancel();
         } catch (error) {
             console.error('Error updating todo:', error);
         }
     };
 
     return (
-        <Col  className="mx-auto mt-4 mb-4">
+        <Col className="mx-auto mt-4 mb-4">
             <Card className="p-4">
                 <h3 className="mb-4">Edit Task</h3>
                 <Form onSubmit={handleSubmit}>
